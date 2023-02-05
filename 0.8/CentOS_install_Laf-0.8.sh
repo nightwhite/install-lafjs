@@ -34,8 +34,16 @@ echo "https端口号为:$httpsPort"
 
 cd ~/
 # 安装 git236以及下载laf项目
+gitV=`git --version|awk '{print $3}'`
+gitv="1.8"
+result=$(echo $gitV | grep "${gitv}")
+# 卸载git 为1.8的版本
+if [[ "$result" != "" ]]
+then
+    yum remove -y git
+fi
 if [ "${gitV}" != "2.36.4" ]; then
-echo "没有安装当前2.36.4，即将安装Git236"
+echo "没有安装当前2.36，即将安装Git236"
 yum install -y \
 https://repo.ius.io/ius-release-el7.rpm \
 https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm 
@@ -56,6 +64,7 @@ echo "安装Docker"
 yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 yum install -y docker
+service start docker
 # 设置docker 开机启动
 systemctl enable docker.service
 # 安装docker-compose 
@@ -65,7 +74,6 @@ chmod +x /usr/local/bin/docker-compose
 # 启动Laf 0.8
 echo "正在启动 Laf 0.8"
 cd /root/laf/deploy/docker-compose/
-service start docker
 docker network create laf_shared_network --driver bridge || true
 docker-compose up -d
 
