@@ -64,7 +64,7 @@ echo "安装Docker"
 yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 yum install -y docker
-service start docker
+systemctl start docker
 # 设置docker 开机启动
 systemctl enable docker.service
 # 安装docker-compose 
