@@ -1,7 +1,6 @@
 #!/bin/bash
 # CentOs 7.6 一键安装 Laf 0.8
 
-
 #提示“请输入后台域名”并等待100秒，把用户的输入保存入变量consoleDomain中
 while test -z "$consoleDomain"
 do
@@ -52,6 +51,7 @@ sed -i -r 's/^OSS_DOMAIN=[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]
 sed -i -r 's/^PUBLISH_PORT=[0-9]*$/PUBLISH_PORT='$(echo $httpPort)'/g' /root/laf/deploy/docker-compose/.env
 sed -i -r 's/^PUBLISH_HTTPS_PORT=[0-9]*$/PUBLISH_HTTPS_PORT='$(echo $httpsPort)'/g' /root/laf/deploy/docker-compose/.env
 
+echo "安装Docker"
 # 安装 docker
 yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
