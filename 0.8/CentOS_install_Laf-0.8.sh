@@ -68,3 +68,7 @@ cd /root/laf/deploy/docker-compose/
 service start docker
 docker network create laf_shared_network --driver bridge || true
 docker-compose up -d
+
+echo "如无报错,则控制台地址为"
+echo "http://$consoleDomain"
+echo "root账号密码为:password123"
